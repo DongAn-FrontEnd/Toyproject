@@ -1,7 +1,5 @@
 # Check Typing Spped
 
-
-
 ## 설명
 
 키보드 속도를 체크하는 프로젝트
@@ -29,7 +27,7 @@
 
 ### 2. `data-*` 에 대해 잘못 이해
 
-    `data-*="false"` 하는 것은 값이 `false` 가아닌 문자열 `"false"`로 매칭된다.
+- `data-*="false"` 하는 것은 값이 `false` 가아닌 문자열 `"false"`로 매칭된다.
 
 <br/>
 

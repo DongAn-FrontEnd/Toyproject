@@ -6,6 +6,8 @@
 
 span[data-press-correct] {
 	font-size: 20px;
+	font-family: monospace;
+	font-weight: 700;
 }
 
 span[data-press-correct="false"] {
@@ -46,13 +48,13 @@ main {
 #input-buffer {
 	width: 100%;
 	height: 30px;
-  padding: 0 5px;
+	padding: 0 5px;
 	border: 2px solid black;
 }
 
 #input-buffer:focus {
-  border: 2px solid #03b6fc;
-  outline: none;
+	border: 2px solid #03b6fc;
+	outline: none;
 }
 
 .container__item {
@@ -136,7 +138,7 @@ main {
 }
 
 #result-speed {
-  letter-spacing: 1.2px;
-  font-weight: 700;
-  font-size: 27px;
+	letter-spacing: 1.2px;
+	font-weight: 700;
+	font-size: 27px;
 }

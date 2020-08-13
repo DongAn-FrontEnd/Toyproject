@@ -3,8 +3,8 @@ const input = document.getElementById("input-buffer");
 const progress = document.getElementById("progress");
 const modalWrapper = document.getElementById("modal-wrapper");
 
-let middleSaveProgress = 0;
-let allSentenceNodes = []; // sentenceWrapper 안의 모든 span 노드들
+let middleSaveProgress = 0;             // 지금까지 맞은 단어 수
+let allSentenceNodes = [];              // sentenceWrapper 안의 모든 span 노드들
 
 // 단어의 경계(lastChar)까지 알맞게 입력했는지 체크함
 function check_Current_Input_End(lastChar) {
@@ -118,7 +118,8 @@ function stopTimer() {
 
 // 타이핑 시작
 function stratTyping() {
-	progress.value = 0;
+  progress.value = 0;                           // progress 값 초기화
+  middleSaveProgress = 0;                       // 지금까지 맞은 단어 수 초기화
 	input.disabled = false;
   input.focus();
   clearSentence();
@@ -139,7 +140,7 @@ function endTyping() {
   // 모달에 타이핑 속도 결과 넣음
   modalWrapper.querySelector("#result-speed").innerText 
     = "Result: " + document.getElementById("speed").innerText.match(/\d+\/min/);
-    
+  
   document.getElementById("reload").innerText = "restart";
 }
 
