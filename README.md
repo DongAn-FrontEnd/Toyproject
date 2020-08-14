@@ -22,7 +22,7 @@
 
 4. pull ruquest
 
-   - pull request할 커밋 위치에서 `week-이름` 브랜치명으로 브랜칭 (기존 브랜치를 남겨두기 위함)   
+   - pull request할 커밋 위치에서 `week-이름` 브랜치명으로 브랜칭 (기존 브랜치를 남겨두기 위함)
    - `git push origin HEAD`로 github repo에 push
    - github 사이트에서 `N week` 브랜치로 pull request
    - pull request 후 커밋 시 pull request 내용이 업데이트됩니다.
