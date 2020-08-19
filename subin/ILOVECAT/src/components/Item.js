@@ -53,11 +53,13 @@ export default class Item {
     const closeBtn = document.createElement("button");
     closeBtn.className = "close";
     closeBtn.innerText = "X";
-    item.onclick = (e) => {
+
+    itemWrapper.addEventListener("click", (e) => {
       this.modalWrapper.classList.add("visible");
       this.modalWrapper.classList.remove("hidden");
       const modalContent = this.modalWrapper.firstChild;
       //modalContent = querySelector('.modal-content')로는 안됐는데 왜?
+
       modalContent.innerHTML = `
                 <div class=modal-card>
                     <img id=innerImg src=${url}>
@@ -67,7 +69,7 @@ export default class Item {
             `;
       modalContent.appendChild(closeBtn);
       console.log(modalContent.firstChild);
-    };
+    });
 
     closeBtn.onclick = () => {
       this.modalWrapper.classList.add("hidden");

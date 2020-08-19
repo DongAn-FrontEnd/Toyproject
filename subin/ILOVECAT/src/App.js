@@ -1,6 +1,7 @@
 import SearchBar from "./components/SearchBar.js";
 import SearchResult from "./components/SearchResult.js";
 import { api } from "./api/theCatAPI.js";
+import { getItem, setItem } from "./sessionStorage.js";
 
 export default class App {
   constructor() {
@@ -15,11 +16,18 @@ export default class App {
     const searchBar = new SearchBar(top, (keyword) => {
       // api call & searchResult update
       api.fetchImage(keyword).then((data) => {
+        //sessionStorage.setItem('data',data);
+        setItem("data", data);
         searchResult.updateData(data);
       });
     });
 
     const searchResult = new SearchResult(bottom);
+    const tmpData = sessionStorage.getItem("data");
+    if (typeof tmpData != "undefined" && tmpData) {
+      //searchResult.updateData(sessionStorage.getItem('data'));
+      searchResult.updateData(getItem("data"));
+    }
 
     // const images = document.querySelectorAll('img');
 
