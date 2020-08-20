@@ -26,7 +26,7 @@ Audio Object Methods
 - play()	재생
 - pause()	일시 중지
 
-## features
+## feature
 
 - event delegation
 - generate randomcolor in js

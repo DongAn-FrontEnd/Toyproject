@@ -1,0 +1,21 @@
+{
+  "name": "ilovecat",
+  "version": "1.0.0",
+  "description": "```js\r function Component(config) {\r   const {\r     $target,\r     className = \"modal\",\r     shouldRender = true,\r   } = config;\r   this.$target = $target;\r   this.className = className;",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^4.2.1",
+    "html-webpack-plugin": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
