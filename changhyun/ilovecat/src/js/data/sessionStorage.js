@@ -1,10 +1,12 @@
 import ID from "../utils/ID";
 
 const SessionStorage = (function () {
-  const KEYWORD_ITEM_ID = ID();
+  // const KEYWORD_ITEM_ID = ID();
+  const DARKMODE_ITEM_KEY = 'darkMode';
+  const KEYWORD_ITEM_KEY = 'keyword'
 
   return function SessionStorage() {
-    this.keyword = JSON.parse(sessionStorage.getItem(KEYWORD_ITEM_ID)) || [];
+    this.keyword = JSON.parse(sessionStorage.getItem('keyword')) || [];
     this.darkMode = JSON.parse(sessionStorage.getItem("darkMode")) || false;
 
     this.get = (key) => {
