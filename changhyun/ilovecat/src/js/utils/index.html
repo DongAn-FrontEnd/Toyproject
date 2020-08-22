@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .modal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #aaa;
+        }
+
+        .modal:not(.show) {
+            display: none;
+        }
+
+        .modalContent {
+            text-align: center;
+            width: 300px;
+            height: 300px;
+            border: 3px solid;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="App">
+        app
+    </div>
+    <script>
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modalContent';
+        modalContent.innerHTML = `
+                                    <h2>sdfsadf</h2>
+                                    <p>asdfsafd</p>
+                                    <p>asfdasdf</p>
+                                `;
+
+        const modalContent2 = document.createElement('div');
+        modalContent2.className = 'modalContent';
+        modalContent2.innerHTML = `
+                                    <h2>sdfsadf</h2>
+                                    <p>asdfsafd</p>
+                                    <p>asdfsafd</p>
+                                    <p>asdfsafd</p>
+                                    <p>asfdasdf</p>
+                                `;
+
+
+        function App() {
+
+            this.element = document.getElementById('App');
+
+            this.showModal = (content) => {
+                if (!this.modal) {
+                    this.modal = document.createElement('div');
+                    this.modal.className = 'modal';
+                    document.body.append(this.modal);
+                }
+                if (content) {
+                    this.modal.innerHTML = '';
+                    this.modal.append(content);
+                }
+
+                this.modal.classList.add('show');
+            }
+
+            this.hideModal = () => {
+                this.modal.classList.remove('show');
+            }
+        }
+
+        const app = new App();
+        app.showModal(modalContent);
+        app.showModal(modalContent2);
+    </script>
+</body>
+
+</html>
