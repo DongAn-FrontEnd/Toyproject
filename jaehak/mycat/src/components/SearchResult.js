@@ -3,8 +3,8 @@ import lazyLoad from "../util/lazyLoad.js";
 import { scrollFetch } from "../util/ScrollFetch.js";
 
 export default class SearchResult {
-	constructor({ $target, cardClick, onScroll }) {
-		this.data = [];
+	constructor({ $target, data, cardClick, onScroll }) {
+		this.data = data;
 
 		this.cardClick = cardClick;
 		this.onScroll = onScroll;
@@ -31,6 +31,8 @@ export default class SearchResult {
 	}
 
 	render() {
+		if (!this.data) return;
+
 		this.cardGroupWrapper.innerHTML = "";
 
 		const cardGroup = document.createElement("div");

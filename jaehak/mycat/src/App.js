@@ -2,13 +2,14 @@ import SearchBar from "./components/SearchBar.js";
 import SearchResult from "./components/SearchResult.js";
 import DatailModal from "./components/DeatilModal.js";
 import Loading from "./components/Loading.js";
+import Error from "./components/Error.js";
+import DarkMode from "./components/DarkMode.js";
 import { api } from "./api/theCatAPI.js";
 import { setItem, getItem } from "./util/sessionStorage.js";
 
 export default class App {
 	constructor($target) {
 		console.log("App is created!");
-
 		const searchBar = new SearchBar({
 			$target,
 			onSearch: async (keyword) => {
@@ -20,7 +21,8 @@ export default class App {
 					setItem("data", response.data);
 					searchResult.updateData(response.data);
 				} else {
-					console.error("에러 발생!!");
+					searchResult.updateData([]);
+					errorPage.setState(response.data);
 				}
 
 				loading.toggleSpinner();
@@ -44,6 +46,7 @@ export default class App {
 
 		const searchResult = new SearchResult({
 			$target,
+			data: getItem("data"),
 			cardClick: (newItem) => {
 				detailModal.setState(newItem);
 				detailModal.toggleModal();
@@ -69,5 +72,7 @@ export default class App {
 
 		const loading = new Loading({ $target });
 		const detailModal = new DatailModal($target);
+		const errorPage = new Error($target);
+		const darkMode = new DarkMode($target);
 	}
 }

@@ -18,24 +18,37 @@ const request = async (url) => {
 
 const api = {
 	fetchImages: async (keyword) => {
-		// 키워드로 해당하는 breed 를 찾음
-		const breeds = await request(`${API_ENDPOINT}/breeds/search?q=${keyword}`);
-
-		console.log("breeds: ", breeds);
-
-		// breed 에 따른 결과들 가져옴 [[cat_1 결과], [cat_2 결과], ...]
-		const requests = breeds.map(async (breed) => {
-			return await request(
-				`${API_ENDPOINT}/images/search?limit=20&breed_ids=${breed.id}`
+		try {
+			// 키워드로 해당하는 breed 를 찾음
+			const breeds = await request(
+				`${API_ENDPOINT}/breeds/search?q=${keyword}`
 			);
-		});
 
-		// request를 전부 resolved 한 결과 도출
-		const response = await Promise.all(requests);
+			if (breeds.length === 0) {
+				throw `${keyword} search result is none...`;
+			}
 
-		const result = response.reduce((acc, cur) => acc.concat(cur), []);
+			// breed 에 따른 결과들 가져옴 [[cat_1 결과], [cat_2 결과], ...]
+			const requests = breeds.map(async (breed) => {
+				return await request(
+					`${API_ENDPOINT}/images/search?limit=20&breed_ids=${breed.id}`
+				);
+			});
 
-		return result;
+			// request를 전부 resolved 한 결과 도출
+			const response = await Promise.all(requests);
+			const result = response.reduce((acc, cur) => acc.concat(cur), []);
+
+			return {
+				isError: false,
+				data: result,
+			};
+		} catch (e) {
+			return {
+				isError: true,
+				data: e,
+			};
+		}
 	},
 
 	fetchRandomImages: async () => {
