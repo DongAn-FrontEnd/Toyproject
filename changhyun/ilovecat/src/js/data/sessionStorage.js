@@ -1,27 +1,40 @@
 import ID from "../utils/ID";
 
+const DARKMODE_ITEM_KEY = "darkMode"
+  .split("")
+  .map((c) => c.charCodeAt(0))
+  .join("");
+const KEYWORD_ITEM_KEY = "keyword"
+  .split("")
+  .map((c) => c.charCodeAt(0))
+  .join("");
+
+const ITEM_KEYS = {
+  darkMode: DARKMODE_ITEM_KEY,
+  keyword: KEYWORD_ITEM_KEY,
+};
 const SessionStorage = (function () {
   // const KEYWORD_ITEM_ID = ID();
-  const DARKMODE_ITEM_KEY = 'darkMode';
-  const KEYWORD_ITEM_KEY = 'keyword'
 
   return function SessionStorage() {
-    this.keyword = JSON.parse(sessionStorage.getItem('keyword')) || [];
-    this.darkMode = JSON.parse(sessionStorage.getItem("darkMode")) || false;
+    this.keyword = JSON.parse(sessionStorage.getItem(KEYWORD_ITEM_KEY)) || [];
+    this.darkMode =
+      JSON.parse(sessionStorage.getItem(DARKMODE_ITEM_KEY)) || false;
 
     this.get = (key) => {
       return this[key];
     };
+
     this.update = (key) => {
-      // if data is reference type, update data in other context.
-      sessionStorage.setItem(key, JSON.stringify(this[key]));
+      sessionStorage.setItem(ITEM_KEYS[key], JSON.stringify(this[key]));
     };
+
     this.set = (key, data) => {
-      this[key] = data;
-      sessionStorage.setItem(key, JSON.stringify(this[key]));
+      sessionStorage.setItem(ITEM_KEYS[key], JSON.stringify(data));
     };
   };
 })();
+
 const _sessionStorage = new SessionStorage();
 
 export default _sessionStorage;

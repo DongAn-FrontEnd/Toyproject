@@ -20,7 +20,8 @@ export default class Card extends Component {
   render() {
     this.$el.innerHTML = `
       <div class="card__image">
-        <img src=${this.imageURL} alt="" />
+        <img class="lazy" data-src=${this.imageURL} alt="cat image" />
+      <div class="placeholder-img show"></div>
       </div>
       <div class="card__content">
         <h2 class="card__title">${this.name}</h2>

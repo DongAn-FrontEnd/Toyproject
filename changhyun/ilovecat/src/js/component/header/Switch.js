@@ -13,8 +13,8 @@ export default class Switch extends Component {
   render() {
     this.$el.innerHTML = `
     <label class="switch">
-    <input type="checkbox" id="switch-toggler" />
-    <span class="switch-ball"></span>
+      <input type="checkbox" id="switch-toggler" />
+      <span class="switch-ball"></span>
     </label>
     `;
   }
@@ -22,6 +22,7 @@ export default class Switch extends Component {
   toggleDarkMode(e) {
     // 두 번 트리거되는 현상 제거
     if (e.target.className === "switch-ball") return;
+
     document.body.classList.toggle("dark");
     this.isDarkMode = !this.isDarkMode;
     this.setSessionStorage("darkMode", this.isDarkMode);

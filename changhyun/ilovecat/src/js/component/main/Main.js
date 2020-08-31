@@ -5,52 +5,51 @@ import Card from "./Card";
 export default class Main extends Component {
   constructor(tag, config, shouldRender) {
     super(tag, config, shouldRender);
-    const { searchedKeyword, catAPI } = config;
+    const { searchedKeyword, catAPI, catsData, modal } = config;
     this.searchedKeyword = searchedKeyword;
     this.catAPI = catAPI;
-  }
+    this.catsData = catsData;
+    this.modal = modal;
 
-  async fetchCatsInfo() {
-    const breedsInfo = await this.catAPI.getBreedsInfo(
-      this.searchedKeyword.value
-    );
-    const restBreedsInfo = breedsInfo.splice(6);
-
-    const catsInfoPromise = breedsInfo.map(({ id }) =>
-      this.catAPI.getImageByBreedId(id)
-    );
-
-    const catsInfo = await Promise.all(catsInfoPromise);
-
-    this.catsInfo = catsInfo
-      .filter((catInfo) => catInfo.length)
-      .map((catInfo) => {
-        const { breeds, url } = catInfo[0];
-        const { name, origin } = breeds[0];
-        return { name, origin, imageURL: url };
-      });
+    this.HandleOnClick = this.HandleOnClick.bind(this);
   }
 
   async renderCatCards() {
-    await this.fetchCatsInfo();
-
     this.$cardBox.innerHTML = ``;
+    const catsData = this.catsData.get();
+    !catsData.length && this.showCatCardsFallback();
 
-    !this.catsInfo.length && this.showCatCardsFallback();
+    this.cards = catsData.map((data) => {
+      const cards = data.map((item) => {
+        const {
+          name,
+          origin,
+          imageURL,
+          description,
+          lifeSpan,
+          weight,
+          wikiURL,
+        } = item;
+        const $li = document.createElement("li");
+        console.log(weight, wikiURL);
+        $li.dataset.info = JSON.stringify({
+          description,
+          lifeSpan,
+          weight,
+          wikiURL,
+        });
+        this.$cardBox.append($li);
 
-    this.cards = this.catsInfo.map(({ name, origin, imageURL }) => {
-      const $li = document.createElement("li");
-      this.$cardBox.append($li);
-
-      return new Card("div", {
-        $parent: $li,
-        className: "card",
-        name,
-        origin,
-        imageURL,
+        return new Card("div", {
+          $parent: $li,
+          className: "card",
+          name,
+          origin,
+          imageURL,
+        });
       });
+      cards.map((card) => card.render());
     });
-    this.cards.map((card) => card.render());
   }
 
   async showCatCardsFallback() {
@@ -69,6 +68,60 @@ export default class Main extends Component {
     `;
   }
 
+  HandleOnClick(e) {
+    const card = e.target.closest(".card");
+    const li = e.target.closest("li");
+    if (card) {
+      const info = JSON.parse(card.parentElement.dataset.info);
+      const { description, lifeSpan, weight, wikiURL } = info;
+      console.log(card);
+      console.log(info);
+
+      const $card = card.cloneNode(true);
+
+      const $info = document.createElement("div");
+      console.log(weight);
+      $info.innerHTML = `
+      <p>${description}</p>
+      <table>
+      <thead>
+      <th>life span</th>
+      <th>weight</th>
+      <thead>
+      <tbody>
+      <tr>
+      <td rowspan="2">${lifeSpan}</td>
+      <td>
+      metric : ${weight.metric}
+      </td>
+      <tr>
+        <td>
+        imperial : ${weight.imperial}
+        </td>
+        </tr>
+      </tbody>
+      <tfoot >
+      <th colspan="2">wiki URL</th>
+      <tr >
+      <td colspan="2">${wikiURL}</td>
+      </tr>
+      </tfoot>
+      </table>
+      `;
+
+      $card.querySelector(".card__content").append($info);
+      const modalContent = document.createElement("div");
+      modalContent.append($card);
+
+      this.modal.setContent(modalContent);
+      this.modal.show();
+      console.log(this.modal);
+      return;
+    }
+    if (li) {
+    }
+  }
+
   render() {
     if (!this.$cardBox) {
       this.$el.innerHTML = `
@@ -77,6 +130,9 @@ export default class Main extends Component {
       `;
       this.$cardBox = this.$el.querySelector(".card-box");
     }
-    this.searchedKeyword.value && this.renderCatCards();
+    this.renderCatCards();
+  }
+  bindEvent() {
+    this.$el.addEventListener("click", this.HandleOnClick);
   }
 }

@@ -73,11 +73,12 @@ const catAPI = (function () {
         let page = this.queries.page;
         console.log(this.queries);
         page += reverse ? -number : number;
-        this.queries.page = page;
 
         if (!isValidPage(page)) {
-          console.error("can not find prev pagination");
+          throw error("can not find prev pagination");
         }
+
+        this.queries.page = page;
 
         this.URL = this.ENDPOINT + "/" + this.path.join("/");
         this.URL += queriesToURL(this.queries);
@@ -105,8 +106,7 @@ const catAPI = (function () {
     }) => {
       try {
         if (!isValidLimit) {
-          console.error("maximum limit is 100");
-          return;
+          throw error("maximum limit is 100");
         }
 
         const path = q ? ["breeds", "search"] : "breeds";

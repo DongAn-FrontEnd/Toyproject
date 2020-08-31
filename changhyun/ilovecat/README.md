@@ -1,3 +1,26 @@
+## 08/31
+
+1. 현재 lazyloading 문제점
+  - data를 fetch할 때 request에 요청되는 시간 동안의 fallback
+  - image를 painting할 때 flickering
+    - image alt src를 주어야할 듯.
+    - alt src image 대신 <div class="palceholder">로 구현해보려함.
+    - image를 request하는 시점에서 placeholder를 띄우고
+    - lazyLoading에서 placeholder를 숨긴 후 image에 src를 달아줌.
+2. 
+
+
+## to do
+
+data 구조 바꾸기
+- 비동기 관련된 데이터 처리
+- global accessible data
+searchBar 컴포넌트 쪼개기
+이미지 페이지네이션
+placeholder 이미지 개선
+main 컴포넌트, searchbar 컴포넌트, API 관계 정리
+메소드 정리하기
+
 
 ## js 파일 구조
 

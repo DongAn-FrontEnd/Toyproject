@@ -9,12 +9,13 @@ const LOGO_URL =
 export default class Header extends Component {
   constructor(tag, config, shouldRender) {
     super(tag, config, shouldRender);
-    console.log(config);
-    const { sessionStorage, handler } = config;
+    const { catAPI, sessionStorage, handler, catsData } = config;
 
     const componentConfig = {
       logo: {
         $parent: this.$el,
+        catAPI,
+        catsData,
         className: "header__logo",
         imageURL: LOGO_URL,
       },
@@ -22,6 +23,8 @@ export default class Header extends Component {
         $parent: this.$el,
         className: "header__searchBar",
         sessionStorage,
+        catAPI,
+        catsData,
         searchedKeyword: config.searchedKeyword,
         handler,
       },
