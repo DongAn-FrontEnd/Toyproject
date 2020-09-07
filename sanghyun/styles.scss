@@ -1,0 +1,83 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.weather {
+  position: absolute;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+
+  &__top {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    padding-right: 9px;
+  }
+
+  &__city {
+    text-align: right;
+    font-size: 13px;
+    height: 25px;
+    padding-right: 11px;
+  }
+
+  &__icon {
+    width: 40px;
+  }
+}
+
+.time-section {
+  color: #eee;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__time {
+    font-size: 180px;
+    font-weight: 600;
+  }
+
+  &__greeting {
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.unsplash-credit {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 5px;
+  border-top-right-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  a {
+    color: #aaa;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .time-section__time {
+    font-size: 100px;
+  }
+
+  .time-section__greeting {
+    font-size: 40px;
+  }
+}

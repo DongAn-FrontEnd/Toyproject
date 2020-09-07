@@ -4,25 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Momentum Clone</title>
-    <script src="./script.js" defer></script>
+    <script type="module" src="./script.js"></script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div id="weather" class="weather">
-      <div class="top">
+      <div class="weather__top">
         <img
           id="weather-icon"
-          class="weather-icon"
-          src="./assets/01d.png"
+          class="weather__icon"
+          src=""
           alt="clear"
         />
         <span id="temperature">00.0°</span>
       </div>
-      <span id="city" class="weather-city">Seoul</span>
+      <span id="city" class="weather__city">Seoul</span>
     </div>
-    <div class="time-container">
-      <div id="time" class="time"></div>
-      <div id="greeting" class="greeting"></div>
+    <div class="time-section">
+      <div id="time" class="time-section__time"></div>
+      <div id="greeting" class="time-section__greeting"></div>
     </div>
     <div class="unsplash-credit">
       Photo by

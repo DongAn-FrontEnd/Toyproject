@@ -15,44 +15,54 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
   color: #fff;
   font-size: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-bottom-left-radius: 5px;
   cursor: pointer;
 }
 
-.weather .top {
+.weather__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-weight: bold;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-right: 9px;
 }
 
-.weather-city {
+.weather__city {
   text-align: right;
   font-size: 13px;
   height: 25px;
   padding-right: 11px;
 }
 
-.weather-icon {
+.weather__icon {
   width: 40px;
 }
 
-.time-container {
+.time-section {
   color: #eee;
   position: absolute;
   top: 45%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
-.time-container .time {
+.time-section__time {
   font-size: 180px;
   font-weight: 600;
 }
 
-.time-container .greeting {
+.time-section__greeting {
   font-size: 50px;
   font-weight: 600;
   text-align: center;
@@ -73,11 +83,11 @@ body {
 }
 
 @media screen and (max-width: 800px) {
-  .time-container .time {
+  .time-section__time {
     font-size: 100px;
   }
-
-  .time-container .greeting {
+  .time-section__greeting {
     font-size: 40px;
   }
 }
+/*# sourceMappingURL=styles.css.map */

@@ -1,4 +1,4 @@
-import { OPENWEATHER_API_KEY, UNSPLASH_API_KEY } from "./config";
+import { OPENWEATHER_API_KEY, UNSPLASH_API_KEY } from "./config.js";
 
 const greetingEl = document.getElementById("greeting");
 const timeEl = document.getElementById("time");
