@@ -6,13 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./style.css" />
   <title>Panic Attack Helper</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet" />
 </head>
 
 <body>
   <div class="app">
-    <div class="intro-page">
+    <div class="intro-page" id="introPage">
       <p class="heading">Panic Attack Helper</p>
-      <button class="help-btn">
+      <button class="help-btn" id="helpButton">
         <svg width="212" height="216" viewBox="0 0 212 216" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="Group_1">
             <g id="Union">
@@ -49,19 +52,16 @@
           </defs>
         </svg>
       </button>
-      <p class="heading">Just press this button, and you will be okay.</p>
+      <p class="heading">
+        Just press this button, and you will be
+        <span class="pink">okay.</span>
+      </p>
     </div>
     <div class="player-page">
-      <p class="heading">Breathe in</p>
-      <div class="light-box">
-        <svg width="305" height="350" viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <p class="heading" id="calmer-text">These feelings are temporary.</p>
+      <div class="svg-box">
+        <svg width="305" height="300" viewBox="0 0 305 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="Group 2">
-            <path id="XMLID_70"
-              d="M152.5 307C236.723 307 305 238.723 305 154.5C305 70.2766 236.723 2 152.5 2C68.2766 2 0 70.2766 0 154.5C0 238.723 68.2766 307 152.5 307Z"
-              fill="#515362" />
-            <path id="XMLID_69" opacity="0.86"
-              d="M152.5 271C216.841 271 269 218.841 269 154.5C269 90.1588 216.841 38 152.5 38C88.1588 38 36 90.1588 36 154.5C36 218.841 88.1588 271 152.5 271Z"
-              fill="#4C6166" />
             <path id="XMLID 34" opacity="0.61"
               d="M152.5 241C200.825 241 240 202.049 240 154C240 105.951 200.825 67 152.5 67C104.175 67 65 105.951 65 154C65 202.049 104.175 241 152.5 241Z"
               fill="url(#paint0_radial)" />
@@ -203,7 +203,7 @@
               fill="#323345" />
             <g id="Group">
               <path id="XMLID 59"
-                d="M184.378 89.7464L185.368 83.1894C185.409 83.1894 185.45 83.1894 185.532 83.1894C189.45 83.1894 192.626 80.0552 192.626 76.1787C192.626 72.9621 190.44 70.2815 187.512 69.4568L193.657 29.0425C195.595 16.3821 185.697 4.95894 172.748 4.95894H152.088H131.427C118.478 4.95894 108.58 16.3409 110.519 29.0425L116.663 69.4568C113.818 70.0341 111.55 73.0033 111.55 76.1787C111.55 80.0552 114.725 83.1894 118.643 83.1894C118.684 83.1894 118.725 83.1894 118.808 83.1894L119.797 89.7464"
+                d="M184.378 89.7464L185.368 83.1894C185.409 83.1894 185.45 83.1894 185.532 83.1894C189.45 83.1894 192.626 80.0552 192.626 76.1787C192.626 72.9621 190.44 70.2816 187.512 69.4568L193.657 29.0425C195.595 16.3822 185.697 4.95895 172.748 4.95895H152.088H131.427C118.478 4.95895 108.58 16.3409 110.519 29.0425L116.663 69.4568C113.818 70.0341 111.55 73.0033 111.55 76.1787C111.55 80.0552 114.725 83.1894 118.643 83.1894C118.684 83.1894 118.725 83.1894 118.808 83.1894L119.797 89.7464"
                 stroke="#323345" stroke-width="8" stroke-miterlimit="10" stroke-linecap="round"
                 stroke-linejoin="round" />
               <path id="XMLID 51"
@@ -271,11 +271,20 @@
             </linearGradient>
           </defs>
         </svg>
+        <div id="circle"></div>
+      </div>
+      <div class="buttons">
+        <span id="durationText">Breahthing duration : 7 sec</span>
         <div class="player-box">
-          <button>slower</button>
-          <img src="./svg/play.svg" alt="play">
-          <button>faster</button>
+          <button class="speedButton">
+            <img src="./svg/speedSvg.svg" alt="faster" class="speed-svg" id="slowerButton" />
+            Slower
+          </button>
+          <button class="speedButton">
+            <img src="./svg/speedSvg.svg" alt="faster" class="speed-svg" id="fasterButton" />Faster
+          </button>
         </div>
+        <button class="okayBtn">I'm okay now</button>
       </div>
     </div>
   </div>
