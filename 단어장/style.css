@@ -1,0 +1,113 @@
+* {
+    margin : 0px;
+    padding : 0px;
+    box-sizing: border-box;
+    font-family: 'Arial',sans-serif;
+    background-color: rgb(239,239,239);
+}
+
+nav {
+    display : flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: #5d4954;
+}
+
+.logo {
+    color : #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+h4 {
+    background-color: #5d4954;
+}
+
+.form {
+    height : 600px;
+}
+
+.row1 {
+    display : flex;
+    position : relative;
+    top : 20px;
+    justify-content: center;
+    margin : 10px;
+}
+
+input {
+    background-color: #ffffff;
+    margin : 5px;
+    padding : 5px;
+    height : 45px;
+    border : none;
+}
+
+#button-input { 
+    margin-top : 4px;
+    margin-left : 2%;
+    background-color: crimson;
+    color : whitesmoke;
+    border: none;
+    border-radius: 5px;
+    height : 45px;
+    width : 100px;
+    font-weight: bold;
+}
+
+
+.application_container {
+    display : flex;
+    flex-direction: column;
+}
+
+/* form - quiz */
+
+#quiz_word {
+
+    position : relative;
+    background-color: #ffffff;
+    justify-content: center;
+    height : 80px;
+    width : 200px;
+    top : 50px;
+    font-size : 17px;
+    text-align: center;
+    line-height: 80px; 
+    /* height와 line-height를 같게 하면 text가 중앙으로 정렬 */
+    display : block;
+    margin : 0 auto;
+    /* block 레벨 엘리먼트는 margin-left와 margin-right가 auto이면 가운데 정렬이 가능 */
+
+}
+
+#multiple_answer_list {
+    display : flex;
+    flex-direction: column;
+    position : relative;
+    top : 100px;
+}
+
+.multiple_answer_item{
+   border: none;
+   width : 100%;
+   padding : 19px;
+   font-size : 17px; 
+   border-radius : 9px;
+   margin-bottom : 10px;
+   background-color: #ffffff;
+}
+
+button {
+    border : none;
+    cursor : pointer;
+}
+
+#score {
+    position: relative;
+    display: block;
+    top : 115px;
+    margin : 0 auto;
+
+}
