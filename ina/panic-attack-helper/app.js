@@ -79,8 +79,8 @@ function textFadeInOut() {
 function fadeOut() {
     introPage.style.display = "none";
 }
-helpButton.addEventListener("click", fadeOut);
 helpButton.addEventListener("click", changePhrase(0));
+helpButton.addEventListener("click", fadeOut);
 fasterButton.addEventListener("click", playFaster);
 fasterButton.addEventListener("click", textFadeInOut);
 slowerButton.addEventListener("click", playSlower);
