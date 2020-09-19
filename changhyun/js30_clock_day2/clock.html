@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .clock {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .clock-analog {
+        position: relative;
+        width: 25vw;
+        height: 25vw;
+        box-shadow: inset 0 0 0.6vw, inset 0 0 0.5vw, inset 0 0 0.6vw, 0 0 0.2vw;
+        border-radius: 100%;
+      }
+      .clock-analog * {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .hand {
+        width: 2.5%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(
+          to bottom,
+          #000 50%,
+          hsla(0, 0%, 100%, 0) 50%
+        );
+      }
+
+      .hour-hand {
+        height: 50%;
+      }
+      .min-hand {
+        height: 75%;
+      }
+      .second-hand {
+        height: 70%;
+        background: linear-gradient(
+          to bottom,
+          #d00 50%,
+          hsla(0, 0%, 100%, 0) 50%
+        );
+      }
+      .pin {
+        z-index: 1;
+        width: 3%;
+        height: 3%;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 1em #fff;
+        border: 1px solid #555;
+      }
+      .clock-digital {
+        display: flex;
+        margin-top: 0.5em;
+        font-size: 3vw;
+      }
+      .clock-digital > div:first-child {
+        margin-right: 0.5rem;
+      }
+      .clock-digital > div:nth-child(2)::after,
+      .clock-digital > div:nth-child(3)::after {
+        content: ":";
+        display: inline;
+        margin: 0 0.5rem;
+      }
+
+      td {
+        font-size: 1.7vw;
+        display: block;
+        margin: 0.5em 1.5em 0;
+      }
+
+      @media only screen and (max-width: 600px) {
+        body {
+          flex-direction: column-reverse;
+          text-align: center;
+        }
+
+        .clock {
+          margin-bottom: 1.5em;
+        }
+        .clock-analog {
+          width: 70vw;
+          height: 70vw;
+        }
+        .clock-digital {
+          font-size: 5vw;
+        }
+
+        td {
+          margin: 3px auto;
+          padding: 0;
+          font-size: 4vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tbody>
+        <tr>
+          <td>Easy to adjust hand size</td>
+        </tr>
+        <tr>
+          <td>Responsive</td>
+        </tr>
+        <tr>
+          <td>accurate time and movement</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="clock">
+      <div class="clock-analog">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+        <div class="pin"></div>
+      </div>
+      <div class="clock-digital">
+        <div class="meridiem"></div>
+        <div>00</div>
+        <div>00</div>
+        <div>00</div>
+      </div>
+    </div>
+
+    <script>
+      const HOUR_SECONDS = 24 * 60 * 60;
+      const MIN_SECONDS = 60 * 60;
+      const SECONDS = 60;
+
+      const $hands = document
+        .querySelector(".clock-analog")
+        .querySelectorAll(".hand");
+      const $digits = document
+        .querySelector(".clock-digital")
+        .querySelectorAll("div");
+
+      const getTimeDegrees = () => {
+        const date = new Date();
+        const [hour, min, sec] = [
+          date.getHours(),
+          date.getMinutes(),
+          date.getSeconds(),
+        ];
+
+        const hourDeg = (360 * (hour * 24 + min * 60 + sec)) / HOUR_SECONDS;
+        const minDeg = (360 * (min * 60 + sec)) / MIN_SECONDS;
+        const secDeg = (360 * sec) / SECONDS;
+
+        return [hourDeg, minDeg, secDeg];
+      };
+
+      const rotateHand = ($hand, deg) => {
+        $hand.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+      };
+
+      const setAnalogClock = () => {
+        const degrees = getTimeDegrees();
+        $hands.forEach(($hand, i) => rotateHand($hand, degrees[i]));
+      };
+
+      const setDigitalClock = () => {
+        const date = new Date();
+
+        const [$meridiem, $hour, $min, $sec] = $digits;
+
+        const [hour, min, others] = date.toLocaleTimeString().split(":");
+        const [sec, meridiem] = others.split(" ");
+
+        $meridiem.textContent = meridiem;
+        $hour.textContent = hour < 10 ? "0" + hour : hour;
+        $min.textContent = min;
+        $sec.textContent = sec;
+      };
+
+      const setClock = () => {
+        setAnalogClock();
+        setDigitalClock();
+      };
+
+      const initClock = () => {
+        setInterval(setClock, 1000);
+        setClock();
+      };
+
+      window.addEventListener("load", initClock);
+    </script>
+  </body>
+</html>
