@@ -64,6 +64,7 @@ class FoodCard {
 		};
 
 		// 현재까지 지면서 바뀌었던 음식 넣음
+		// 중복을 검사하기 위해 선언함
 		this.uniqueList = uniqueList;
 
 		this.button = document.createElement("button");
@@ -83,6 +84,10 @@ class FoodCard {
 		this.changeRandomMeal();
 	}
 
+	// target_id 가 uniqueList에 있는지 검사함
+	// 중복을 검사
+	// 반환값 true : 중복
+	// 반환값 false : 미중복
 	isInUniqueList(target_id) {
 		return this.uniqueList.includes(target_id);
 	}
@@ -94,6 +99,8 @@ class FoodCard {
 		}
 	}
 
+	// 이 카드가 지는 경우 음식 정보가 새로 바뀌니
+	// 중복을 위해 저장한 uniqueList를 바꿈
 	initUniqueList(target_id) {
 		this.uniqueList = [target_id];
 	}
@@ -219,54 +226,58 @@ class RankingTable {
 const Table = new RankingTable(document.querySelector(".you-choices"));
 
 // ================================ 모달 ================================
-class Modal {
+
+class ModalWrapper {
 	constructor($target) {
 		this.active = false;
-		this.data = "";
-
 		this.modalWrapper = document.createElement("div");
 		this.modalWrapper.className = "modal-wrapper hidden";
 
-		const modalBackground = document.createElement("div");
-		modalBackground.className = "modal-background";
+		this.modalBackground = document.createElement("div");
+		this.modalBackground.className = "modal-background";
 
-		modalBackground.addEventListener("click", (e) => {
-			this.toggle();
-		});
-
-		this.modal = document.createElement("div");
-		this.modal.className = "modal";
-
-		this.modalWrapper.appendChild(modalBackground);
-		this.modalWrapper.appendChild(this.modal);
+		this.modalWrapper.appendChild(this.modalBackground);
 		$target.appendChild(this.modalWrapper);
 	}
 
-	toggle() {
-		this.active = !this.active;
-		this.modalWrapper.classList.toggle("hidden");
+	openModal(target_modal) {
+		this.modalWrapper.appendChild(target_modal);
+
+		// 해당 이벤트 한번만 실행됨
+		this.modalBackground.addEventListener(
+			"click",
+			(e) => {
+				this.modalWrapper.classList.add("hidden");
+				this.modalWrapper.removeChild(target_modal);
+				this.active = false;
+			},
+			"once"
+		);
+
+		this.modalWrapper.classList.remove("hidden");
+		this.active = true;
+	}
+}
+
+class Modal {
+	constructor(id) {
+		this.modal = document.createElement("div");
+
+		// 데이터 가져고 렌더링
+		this.getDataRender(id);
 	}
 
-	async modalOpen(id) {
+	async getDataRender(id) {
 		const { meals } = await request(DETAIL_MEAL_BY_ID_API + id);
-		this.data = meals[0];
-
-		this.toggle();
-
-		this.render();
-	}
-
-	render() {
-		this.modal.innerHTML = "";
-
 		const {
 			strMeal: name,
 			strMealThumb: img,
 			strCategory: category,
 			strArea: country,
 			strYoutube: vedioURL,
-		} = this.data;
+		} = meals[0];
 
+		this.modal.className = "modal";
 		this.modal.innerHTML = `<div class="modal__item modal__title bold">${name}</div>
     <div class="modal__item modal__img-wrapper">
       <img class="modal-img" src=${img} alt=${name} />
@@ -277,17 +288,21 @@ class Modal {
     `;
 	}
 }
-const MyModal = new Modal(document.body);
+
+const myModalWrapper = new ModalWrapper(document.body);
 
 // 이벤트 위임!!!
 // 모든 a 태그중 data-id 있는 경우 data-id 값을 통해
 // 모달을 띄움(모달은 data-id 값으로 음식의 상세 정보 가져옴)
-document.querySelector("main").addEventListener("click", (e) => {
+document.querySelector("main").addEventListener("click", async (e) => {
 	e.preventDefault();
 
 	const callModalTags = [...e.composedPath()].filter(
 		(node) => node.nodeName === "A" && node.dataset.id != undefined
 	);
 
-	if (callModalTags.length > 0) MyModal.modalOpen(callModalTags[0].dataset.id);
+	if (callModalTags.length > 0) {
+		const newModal = await new Modal(callModalTags[0].dataset.id);
+		myModalWrapper.openModal(newModal.modal);
+	}
 });
